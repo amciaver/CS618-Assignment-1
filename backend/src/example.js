@@ -1,2 +1,13 @@
 import { initDatabase } from './db/init.js'
-initDatabase()
+import { Post } from './db/models/post.js'
+
+await initDatabase()
+
+const post = new Post({
+  title: 'Hello Mongoose!',
+  author: 'Huseyin Ergin',
+  contents: 'This post is stored in a MongoDF database using Mongoose.',
+  tags: ['mongoose', 'mongodb'],
+})
+
+await post.save()
