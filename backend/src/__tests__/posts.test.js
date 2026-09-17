@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { describe, expect, test } from '@jest/globals'
 import { createPost } from '../services/posts.js'
 import { Post } from '../db/models/post.js'
+
 describe('creating posts', () => {
   test('with all parameters should succeed', async () => {
     const post = {
@@ -17,6 +18,7 @@ describe('creating posts', () => {
     expect(foundPost.createdAt).toBeInstanceOf(Date)
     expect(foundPost.updatedAt).toBeInstanceOf(Date)
   })
+
   test('without title should fail', async () => {
     const post = {
       author: 'Huseyin Ergin',
@@ -30,6 +32,7 @@ describe('creating posts', () => {
       expect(err.message).toContain('`title` is required')
     }
   })
+
   test('with minimal parameters should succeed', async () => {
     const post = {
       title: 'Only a title',
