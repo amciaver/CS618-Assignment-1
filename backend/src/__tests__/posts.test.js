@@ -128,11 +128,10 @@ describe('creating posts', () => {
   test('with all parameters should succeed', async () => {
     const post = {
       title: 'Hello Mongoose!',
-      author: 'Huseyin Ergin',
       contents: 'This post is stored in a MongoDB database using Mongoose.',
       tags: ['mongoose', 'mongodb'],
     }
-    const createdPost = await createPost(post)
+    const createdPost = await createPost(testUser._id, post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
     const foundPost = await Post.findById(createdPost._id)
     expect(foundPost).toEqual(expect.objectContaining(post))
@@ -146,7 +145,7 @@ describe('creating posts', () => {
       tags: ['empty'],
     }
     try {
-      await createPost(post)
+      await createPost(testUser._id, post)
     } catch (err) {
       expect(err).toBeInstanceOf(mongoose.Error.ValidationError)
       expect(err.message).toContain('`title` is required')
@@ -156,7 +155,7 @@ describe('creating posts', () => {
     const post = {
       title: 'Only a title',
     }
-    const createdPost = await createPost(post)
+    const createdPost = await createPost(testUser._id, post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
   })
 })
