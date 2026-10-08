@@ -48,21 +48,21 @@ describe('getting a post', () => {
 })
 describe('updating posts', () => {
   test('should update the specified property', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
-      author: 'Test Author',
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
+      contents: 'some content change',
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
-    expect(updatedPost.author).toEqual('Test Author')
+    expect(updatedPost.contents).toEqual('some content change')
   })
   test('should not update other properties', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
       author: 'Test Author',
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
     expect(updatedPost.title).toEqual('Learning Redux')
   })
   test('should update the updatedAt timestamp', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
       author: 'Test Author',
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
@@ -71,7 +71,7 @@ describe('updating posts', () => {
     )
   })
   test('should fail if the id does not exist', async () => {
-    const post = await updatePost('000000000000000000000000', {
+    const post = await updatePost(testUser._id, '000000000000000000000000', {
       author: 'Test Author',
     })
     expect(post).toEqual(null)
