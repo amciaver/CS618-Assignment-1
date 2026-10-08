@@ -17,7 +17,11 @@ let samplePosts = []
 beforeAll(async () => {
   testUser = await createUser({ username: 'sample', password: 'user' })
   samplePosts = [
-    { title: 'Learning Redux', author: testUser._id, tags: ['redux'] },
+    {
+      title: 'Learning Redux',
+      author: testUser._id,
+      tags: ['redux'],
+    },
     { title: 'Learn React Hooks', author: testUser._id, tags: ['react'] },
     {
       title: 'Full-Stack React Projects',
@@ -116,7 +120,7 @@ describe('listing posts', () => {
     )
   })
   test('should be able to filter posts by author', async () => {
-    const posts = await listPostsByAuthor('Daniel Bugl')
+    const posts = await listPostsByAuthor(testUser.username)
     expect(posts.length).toBe(3)
   })
   test('should be able to filter posts by tag', async () => {
