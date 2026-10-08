@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { describe, expect, test, beforeEach } from '@jest/globals'
+import { describe, expect, test, beforeEach, beforeAll } from '@jest/globals'
 import {
   createPost,
   listAllPosts,
@@ -10,16 +10,23 @@ import {
   deletePost,
 } from '../services/posts.js'
 import { Post } from '../db/models/post.js'
-const samplePosts = [
-  { title: 'Learning Redux', author: 'Daniel Bugl', tags: ['redux'] },
-  { title: 'Learn React Hooks', author: 'Daniel Bugl', tags: ['react'] },
-  {
-    title: 'Full-Stack React Projects',
-    author: 'Daniel Bugl',
-    tags: ['react', 'nodejs'],
-  },
-  { title: 'Guide to TypeScript' },
-]
+import { createUser } from '../services/users.js'
+
+let testUser = null //Remove old Sample posts with this one
+let samplePosts = []
+beforeAll(async () => {
+  testUser = await createUser({ username: 'sample', password: 'user' })
+  samplePosts = [
+    { title: 'Learning Redux', author: testUser._id, tags: ['redux'] },
+    { title: 'Learn React Hooks', author: testUser._id, tags: ['react'] },
+    {
+      title: 'Full-Stack React Projects',
+      author: testUser._id,
+      tags: ['react', 'nodejs'],
+    },
+  ]
+})
+
 let createdSamplePosts = []
 beforeEach(async () => {
   await Post.deleteMany({})
