@@ -37,6 +37,7 @@ async function createDevServer() {
   return app
 }
 const app = await createDevServer()
+
 app.listen(process.env.PORT, () =>
   console.log(`ssr dev server running on http://localhost:${process.env.PORT}`),
 )
