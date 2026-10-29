@@ -10,6 +10,7 @@ import {
   HydrationBoundary,
 } from '@tanstack/react-query'
 import { getUserInfo } from './api/users.js'
+
 export const routes = [
   {
     path: '/',
@@ -52,7 +53,7 @@ export const routes = [
     element: <Login />,
   },
   {
-    path: '/posts/:postId',
+    path: '/posts/:postId/:slug?',
     loader: async ({ params }) => {
       const postId = params.postId
       const queryClient = new QueryClient()
