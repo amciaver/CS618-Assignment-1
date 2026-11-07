@@ -1,0 +1,4 @@
+{
+  "schema": "https://ominous-engine-5grj9j6qvp6j2vj5j-3000.app.github.dev/graphql",
+  "documents": "src/api/graphql/**/*.{js,jsx}"
+}
