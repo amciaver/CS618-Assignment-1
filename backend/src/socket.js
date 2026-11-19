@@ -30,9 +30,10 @@ export function handleSocket(io) {
     })
     socket.on('chat.message', (message) => {
       console.log(`${socket.id}: ${message}`)
-      socket.broadcast
-        .to(room)
-        .emit('chat.message', { username: socket.user.username, message })
+      io.to(room).emit('chat.message', {
+        username: socket.user.username,
+        message,
+      })
     })
     socket.on('user.info', async (socketId, callback) => {
       const sockets = await io.in(socketId).fetchSockets()
